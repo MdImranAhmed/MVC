@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ResumeManagement.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="d-flex justify-content-end mb-2">
+    <a href="@Url.Action("Create","Employees")" id="btnCreate" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus pr-2"></i> Add New</a>
+</div>
+<div>
+    @foreach (var cl in Model)
+    {
+        <div class="card mb-2">
+            <div class="card-header d-flex justify-content-between">
+                <div>
+                    <img src="@cl.Picture" width="32" height="32" class="rounded" /> <br />
+                    <label class="mr-2"><b>Employee: </b>@Html.DisplayFor(x => cl.EmployeeName)</label>
+                    <br />
+                    <label class="mr-2"><b>Salary: </b>@Html.DisplayFor(x => cl.Salary)</label>
+                    <br />
+                    <label class="mr-2"><b>Date of birth: </b>@Html.DisplayFor(x => cl.BirthDate)</label> <br />
+                    <label class="mr-2"><b>Active?: </b>@Html.DisplayFor(x => cl.IsActive)</label>
+                </div>
+                <div>
+                    <a href="@Url.Action("Edit", "Employees", new { id=cl.EmployeeId})" id="btnEntryEdit" class="btn btn-outline-success">Edit</a>
+                    <a href="@Url.Action("Delete", "Employees", new { id=cl.EmployeeId})" id="btnEntryDelete" class="btn btn-outline-danger">Delete</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped table-sm">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Qualification Id</th>
+                            <th>Qualification Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in cl.QualificationEntries)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(x => item.Qualification.QualificationId)</td>
+                                <td>@Html.DisplayFor(x => item.Qualification.QualificationName)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
